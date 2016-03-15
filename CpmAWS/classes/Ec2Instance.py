@@ -13,7 +13,7 @@ class Ec2Instance(Aws):
     # EC2 have a name that is not the id
     @property
     def name(self):
-        return self.getTagValue('Name')
+        return self.tags.get('Name')
 
     def getInstanceName(self, instanceObject):
         return self.getInstanceTagValue(instanceObject, 'Name')

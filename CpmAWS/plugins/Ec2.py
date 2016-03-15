@@ -30,7 +30,7 @@ class Ec2(Plugin):
         :rtype: bool
         """
         ec2collection = Ec2Collection(self.orchestrator)
-        if Ec2Instance.connect() == False:
+        if ec2collection.connect() == False:
             logging.error('Impossible to connect')
             return False
         if ec2collection.list() == False:
@@ -62,7 +62,7 @@ class Ec2(Plugin):
         :rtype: bool
         """
         ec2collection = Ec2Collection(self.orchestrator)
-        if Ec2Instance.connect() == False:
+        if ec2collection.connect() == False:
             logging.error('Impossible to connect')
             return False
         if ec2collection.list() == False:
