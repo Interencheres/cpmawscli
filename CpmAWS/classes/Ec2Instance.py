@@ -15,9 +15,6 @@ class Ec2Instance(Aws):
     def name(self):
         return self.tags.get('Name')
 
-    def getInstanceName(self, instanceObject):
-        return self.getInstanceTagValue(instanceObject, 'Name')
-
     def AwsTagsGet(self):
         return self.aws.describe_tags(Filters=[{'Name':'resource-id', 'Values':[self.id] }])['Tags']
 
