@@ -3,6 +3,7 @@ This script is intended for use via a scheduler like rundeck to automate shut do
 It has be designed in a modular way so that adding support for new AWS entity is done via adding files.
 
 = Changelog
+
 * 2016/03/15 
   * support for EC2 (stop start list)
   * support for RDS (stop start list)
