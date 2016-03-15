@@ -1,0 +1,37 @@
+# Rds tags to save in snapshot tags
+InstanceSimpleTagsForSnapshot:
+  - DBInstanceIdentifier
+  - DBInstanceClass
+  - AvailabilityZone
+  - MultiAZ
+  - PubliclyAccessible
+  - AutoMinorVersionUpgrade
+  - LicenseModel
+  - Engine
+  - Iops
+  - StorageType
+  - TdeCredentialArn
+  - TdeCredentialPassword
+  - CopyTagsToSnapshot
+InstanceDictTagsForSnapshot:
+  DBSubnetGroup: DBSubnetGroupName
+InstanceArrayTagsForSnapshot:
+  OptionGroupMemberships: OptionGroupName
+
+dbSnapshotPrefix: "autoff"
+region: "eu-west-1"
+# Log parameters
+logformat: '%(asctime)s %(levelname)s %(message)s'
+logcolors:
+    'debug':
+        'color': 'blue'
+    'info':
+        'color': 'green'
+    'notice':
+        'color': 'blue'
+    'warning':
+        'color': 'yellow'
+    'error':
+        'color': 'red'
+
+
