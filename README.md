@@ -9,6 +9,7 @@ It has be designed in a modular way so that adding support for new AWS entity is
   * support for RDS (stop start list)
   * filter by tags values (in an AND way not OR) or filter by instance name
   * exclude instances by name
+  * use [boto3](https://github.com/boto/boto3) waiters
 
 ```
 usage: cpmawscli.py [-h] (--tag key value | --instance INSTANCE) [--dryrun]
