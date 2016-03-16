@@ -17,7 +17,7 @@ class Ec2Collection(Collection):
             arrayOfAwsObjects = self.aws.describe_instances()
             for reservation in arrayOfAwsObjects['Reservations']:
                 for awsObject in reservation['Instances']:
-                    instances[awsObject['InstanceId']]=Ec2Instance(self.orchestrator, self.aws).load(awsObject)
+                    instances[awsObject['InstanceId']] = Ec2Instance(self.orchestrator, self.aws).load(awsObject)
                     logging.debug(instances[awsObject['InstanceId']].tags.get('Name'))
         except Exception as e:
             logging.error(format(e))
@@ -27,6 +27,3 @@ class Ec2Collection(Collection):
         for name in self.instances:
             logging.debug(name)
         return True
-
-
-

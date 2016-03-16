@@ -81,7 +81,7 @@ class RdsSnapshot(Aws):
                 self.dbsnapshotidentifier = self.get('DBSnapshotIdentifier')
                 ret = self.aws.restore_db_instance_from_db_snapshot(**params)
                 if ret['DBInstance']['DBInstanceIdentifier'] == self.awsObject['DBInstanceIdentifier']:
-                    self.rdsinstance = RdsInstance(self.orchestrator,self.aws)
+                    self.rdsinstance = RdsInstance(self.orchestrator, self.aws)
                     self.rdsinstance.load(ret['DBInstance'])
                     return True
             except Exception as e:
@@ -122,4 +122,3 @@ class RdsSnapshot(Aws):
 
     def AwsTagsGet(self):
         return self.aws.list_tags_for_resource(ResourceName=self.getArn())['TagList']
-

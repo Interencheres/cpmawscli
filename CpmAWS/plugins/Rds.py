@@ -18,9 +18,9 @@ class Rds(Plugin):
             logging.error('No instance matching filter')
             return False
         else:
-            for id,instance in rdscollection.instances.iteritems():
-                print ' - Instance '+instance.name+\
-                      ' status='+instance.get('DBInstanceStatus')
+            for id, instance in rdscollection.instances.iteritems():
+                print ' - Instance ' + instance.name + \
+                      ' status=' + instance.get('DBInstanceStatus')
             return True
 
     def stop(self):

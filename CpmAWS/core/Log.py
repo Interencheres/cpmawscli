@@ -1,5 +1,6 @@
 import logging
 
+
 class Log(logging.getLoggerClass()):
     def __init__(self, name, level=logging.NOTSET):
         super().__init__(name, level)

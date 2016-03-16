@@ -5,6 +5,7 @@ import logging
 from CpmAWS.core.Aws import Aws
 from CpmAWS.core.Tags import Tags
 
+
 class RdsInstance(Aws):
     # @TODO replace hash by empty object
     snapshot = {}
@@ -18,7 +19,6 @@ class RdsInstance(Aws):
 
     def AwsTagsGet(self):
         return self.aws.list_tags_for_resource(ResourceName=self.getArn())['TagList']
-
 
     def getInstancePropertiesForSnapshot(self, awsObject):
         # Simple value Tags
@@ -50,7 +50,7 @@ class RdsInstance(Aws):
 
         # split in 256 chunks as tag values are limited to 256
         for index, chunk in enumerate(
-            [serialized_properties[i:i + 256] for i in range(0, len(serialized_properties), 256)]):
+                [serialized_properties[i:i + 256] for i in range(0, len(serialized_properties), 256)]):
             tags.append({
                 'Key': 'instanceProperties_' + str(index),
                 'Value': chunk
@@ -105,7 +105,3 @@ class RdsInstance(Aws):
             logging.error('Instance ' + self.id + ' not available')
             logging.error(format(e))
         return False
-
-
-
-
