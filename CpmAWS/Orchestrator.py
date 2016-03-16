@@ -41,9 +41,9 @@ class Orchestrator():
 
         self.parser.add_argument('--dryrun', help='dryrun mode', action='store_true', required=False)
         self.parser.add_argument('--exclude',
-                         help='exclude specific instance name',
-                         nargs='*',
-                         required=False)
+                                 help='exclude specific instance name',
+                                 nargs='*',
+                                 required=False)
         self.parser.add_argument('--loglevel',
                                  help='log level (debug,info,notice,warning,error,critical',
                                  choices=['debug', 'info', 'notice', 'warning', 'error', 'critical'],
@@ -56,10 +56,8 @@ class Orchestrator():
 
         self.parameters = Parameters(self.parser.parse_args())
         coloredlogs.install(level=self.parameters.loglevel.upper(),
-                            fmt= self.configuration.get('logformat'),
-                            field_styles={
-                                'asctime': {'color': 'white'}
-                            },
+                            fmt=self.configuration.get('logformat'),
+                            field_styles={'asctime': {'color': 'white'}},
                             level_styles=self.configuration.get('logcolors'))
 
     def getPluginList(self):

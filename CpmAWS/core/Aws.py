@@ -2,6 +2,7 @@ import boto3
 import logging
 from Tags import Tags
 
+
 class Aws:
     configuration = None
     parameters = None
@@ -18,10 +19,9 @@ class Aws:
         self.parameters = orchestrator.parameters
         self.aws = aws
 
-
     def load(self, awsObject):
         self.awsObject = awsObject
-        self.tagsobject=self.makeTags(self.AwsTagsGet())
+        self.tagsobject = self.makeTags(self.AwsTagsGet())
         return self
 
     @property
@@ -30,14 +30,14 @@ class Aws:
 
     # to be defined in instance classes must return { 'Key': key, 'Value': value}
     def AwsTagsGet(self):
-        #@TODO mettre une exception
+        # @TODO mettre une exception
         return None
 
-    def makeTags(self,awstags):
-        object=Tags()
+    def makeTags(self, awstags):
+        object = Tags()
         try:
             for tag in awstags:
-                object.add(tag['Key'],tag['Value'])
+                object.add(tag['Key'], tag['Value'])
         except Exception as e:
             logging.notice('Error reading tags')
             logging.error(format(e))
@@ -74,8 +74,8 @@ class Aws:
         try:
             if self.parameters.aws_access_key_id and self.parameters.aws_secret_access_key:
                 self.aws = boto3.client(self.arnService, self.configuration.get('region'),
-                                    aws_access_key_id=self.parameters.aws_access_key_id,
-                                    aws_secret_access_key=self.parameters.aws_secret_access_key)
+                                        aws_access_key_id=self.parameters.aws_access_key_id,
+                                        aws_secret_access_key=self.parameters.aws_secret_access_key)
             else:
                 self.aws = boto3.client(self.arnService, self.configuration.get('region'))
             logging.notice("Connected to region " + self.configuration.get('region'))
@@ -83,5 +83,3 @@ class Aws:
         except Exception as e:
             logging.error(format(e))
         return False
-
-

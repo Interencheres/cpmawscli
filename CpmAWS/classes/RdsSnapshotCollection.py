@@ -24,7 +24,7 @@ class RdsSnapshotCollection(Collection):
             return False
         # filter them
         for awsObject in result['DBSnapshots']:
-            snapshot=None
+            snapshot = None
             snapshot = RdsSnapshot(self.orchestrator, self.aws)
             snapshot.load(awsObject)
             # filter with tag_key/value
@@ -32,7 +32,7 @@ class RdsSnapshotCollection(Collection):
                 # keep only last snapshot
                 if not snapshot.awsObject['DBInstanceIdentifier'] in self.snapshots or snapshot.awsObject[
                     'SnapshotCreateTime'] > self.snapshots[snapshot.awsObject['DBInstanceIdentifier']].awsObject[
-                    'SnapshotCreateTime']:
+                        'SnapshotCreateTime']:
                     self.snapshots[snapshot.awsObject['DBInstanceIdentifier']] = snapshot
                     logging.debug(snapshot.awsObject['DBSnapshotIdentifier'])
                 else:
@@ -42,5 +42,3 @@ class RdsSnapshotCollection(Collection):
         for dbinstanceidentifier in self.snapshots:
             logging.notice(dbinstanceidentifier)
         return self.snapshots
-
-

@@ -19,8 +19,8 @@ class Ec2(Plugin):
 
         if ec2collection.list() == False:
             return False
-        for id,instance in ec2collection.instances.iteritems():
-            print ' - Instance '+instance.tags.get('Name')+' status='+instance.get('State')['Name']
+        for id, instance in ec2collection.instances.iteritems():
+            print ' - Instance ' + instance.tags.get('Name') + ' status=' + instance.get('State')['Name']
         return True
 
     def stop(self):
@@ -36,23 +36,23 @@ class Ec2(Plugin):
         if ec2collection.list() == False:
             return False
 
-        ok=True
-        stoppinginstances=[]
+        ok = True
+        stoppinginstances = []
         logging.notice('Stopping instances...')
-        for id,instance in ec2collection.instances.iteritems():
+        for id, instance in ec2collection.instances.iteritems():
             if instance.awsObject['State']['Name'] == 'running':
                 if instance.stop():
                     stoppinginstances.append(instance)
                 else:
-                    ok=False
+                    ok = False
             else:
-                logging.warning('Skipping Instance '+instance.name+' is status '+instance.awsObject['State']['Name'])
-                ok=False
+                logging.warning('Skipping Instance ' + instance.name + ' is status ' + instance.awsObject['State']['Name'])
+                ok = False
 
         logging.notice('Waiting instances to be stopped...')
         for instance in stoppinginstances:
             if not instance.waitstopped():
-                ok=False
+                ok = False
         return ok
 
     def start(self):
@@ -68,20 +68,20 @@ class Ec2(Plugin):
         if ec2collection.list() == False:
             return False
 
-        ok=True
-        startinginstances=[]
+        ok = True
+        startinginstances = []
         logging.notice('Starting instances...')
-        for id,instance in ec2collection.instances.iteritems():
+        for id, instance in ec2collection.instances.iteritems():
             if instance.awsObject['State']['Name'] == 'stopped':
                 if instance.start():
                     startinginstances.append(instance)
                 else:
-                    ok=False
+                    ok = False
             else:
-                logging.warning('Skipping Instance '+instance.name+' is status '+instance.awsObject['State']['Name'])
-                ok=False
+                logging.warning('Skipping Instance ' + instance.name + ' is status ' + instance.awsObject['State']['Name'])
+                ok = False
         logging.notice('Waiting instances to be stopped...')
         for instance in startinginstances:
             if not instance.waitstarted():
-                ok=False
+                ok = False
         return ok

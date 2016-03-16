@@ -27,5 +27,3 @@ class RdsCollection(Collection):
         for name in self.instances:
             logging.debug(name)
         return self.instances
-
-

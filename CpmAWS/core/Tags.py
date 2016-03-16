@@ -1,14 +1,11 @@
-
 class Tags:
-    dictionnary={}
-
     def __init__(self):
-        self.dictionnary={}
+        self.dictionnary = {}
 
-    def add(self,key,value):
-        self.dictionnary[key]=value
+    def add(self, key, value):
+        self.dictionnary[key] = value
 
-    def get(self,key):
+    def get(self, key):
         if key in self.dictionnary:
             return self.dictionnary[key]
         return False
