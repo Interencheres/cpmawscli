@@ -1,9 +1,6 @@
-import base64
-import json
 import logging
 
 from CpmAWS.core.Aws import Aws
-from CpmAWS.core.Tags import Tags
 
 
 class RdsInstance(Aws):
@@ -21,18 +18,7 @@ class RdsInstance(Aws):
         return self.aws.list_tags_for_resource(ResourceName=self.getArn())['TagList']
 
     def getInstancePropertiesForSnapshot(self, awsObject):
-        # Simple value Tags
-        properties = {key: value for key, value in awsObject.items() if
-                      key in self.configuration.get('InstanceSimpleTagsForSnapshot')}
-
-        # List dict Tags
-        for key, value in self.configuration.get('InstanceDictTagsForSnapshot').iteritems():
-            properties[value] = self.get(key)[value]
-
-        # List array Tags
-        for key, value in self.configuration.get('InstanceArrayTagsForSnapshot').iteritems():
-            # @TODO remove the [0] when snapshot creation supports list for this property
-            properties[value] = self.get(key)[0][value]
+        properties = super(RdsInstance, self).getInstancePropertiesForSnapshot(awsObject)
 
         # if multiaz remove the availability zone
         if properties['MultiAZ'] is True:
@@ -40,27 +26,6 @@ class RdsInstance(Aws):
 
         logging.debug('Properties for snapshot ' + str(properties))
         return properties
-
-    def makeTagsForSnapshot(self):
-        # characters are limited so base64encode the chunk
-        jsonTags = json.dumps(self.getInstancePropertiesForSnapshot(self.awsObject))
-        logging.debug('Tags for ' + self.id + ' ' + jsonTags)
-        serialized_properties = base64.b64encode(jsonTags)
-        tags = []
-
-        # split in 256 chunks as tag values are limited to 256
-        for index, chunk in enumerate(
-                [serialized_properties[i:i + 256] for i in range(0, len(serialized_properties), 256)]):
-            tags.append({
-                'Key': 'instanceProperties_' + str(index),
-                'Value': chunk
-            })
-        # snapshots are only allowed 10 tags
-        if len(tags) > 10:
-            logging.error('properties exceed 10 tags')
-            exit(255)
-
-        return tags
 
     def exist(self, DBInstanceIdentifier):
         try:

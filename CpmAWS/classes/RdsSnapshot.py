@@ -1,5 +1,3 @@
-import base64
-import json
 import logging
 from datetime import datetime
 
@@ -58,25 +56,15 @@ class RdsSnapshot(Aws):
             return True
         return False
 
-    def decodeTags(self):
-        # concatenate all the tags
-        i = 0
-        encodedtags = ""
-        while self.tags.get('instanceProperties_' + str(i)) is not False:
-            encodedtags += self.tags.get('instanceProperties_' + str(i))
-            i = i + 1
-        return json.loads(base64.b64decode(encodedtags))
-
     def restore(self):
         # test if instance already exist
         if RdsInstance(self.orchestrator, self.aws).exist(self.awsObject['DBInstanceIdentifier']):
             logging.error(' Not restoring existing ' + self.awsObject['DBInstanceIdentifier'])
             return False
         # restore instance
-        dbparam = self.decodeTags()
+        params = self.decodeTags(RdsInstance(self.orchestrator, self.aws))
         if not self.parameters.dryrun:
             try:
-                params = self.decodeTags()
                 params['DBSnapshotIdentifier'] = self.get('DBSnapshotIdentifier')
                 self.dbsnapshotidentifier = self.get('DBSnapshotIdentifier')
                 ret = self.aws.restore_db_instance_from_db_snapshot(**params)
