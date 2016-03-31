@@ -107,6 +107,7 @@ class Rds(Plugin):
         for snapshot in snapshotsok:
             if snapshot.wait():
                 waitsnapshotok.append(snapshot)
+            else:
                 ok = False
         if len(waitsnapshotok) == 0:
             logging.debug('No snapshot to wait')
