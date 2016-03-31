@@ -1,22 +1,25 @@
 # Rds tags to save in snapshot tags
-InstanceSimpleTagsForSnapshot:
-  - DBInstanceIdentifier
-  - DBInstanceClass
-  - AvailabilityZone
-  - MultiAZ
-  - PubliclyAccessible
-  - AutoMinorVersionUpgrade
-  - LicenseModel
-  - Engine
-  - Iops
-  - StorageType
-  - TdeCredentialArn
-  - TdeCredentialPassword
-  - CopyTagsToSnapshot
-InstanceDictTagsForSnapshot:
-  DBSubnetGroup: DBSubnetGroupName
-InstanceArrayTagsForSnapshot:
-  OptionGroupMemberships: OptionGroupName
+tags:
+  rdsdb:
+    Simple:
+      - DBInstanceIdentifier
+      - DBInstanceClass
+      - AvailabilityZone
+      - MultiAZ
+      - PubliclyAccessible
+      - AutoMinorVersionUpgrade
+      - LicenseModel
+      - Engine
+      - Iops
+      - StorageType
+      - TdeCredentialArn
+      - TdeCredentialPassword
+      - CopyTagsToSnapshot
+    DictToSimple:
+      DBSubnetGroup: DBSubnetGroupName
+    ArrayToSimple:
+      OptionGroupMemberships: OptionGroupName
+
 
 dbSnapshotPrefix: "autoff"
 region: "eu-west-1"
