@@ -35,7 +35,7 @@ class RdsInstance(Aws):
             properties[value] = self.get(key)[0][value]
 
         # if multiaz remove the availability zone
-        if properties['MultiAZ'] == True:
+        if properties['MultiAZ'] is True:
             del (properties['AvailabilityZone'])
 
         logging.debug('Properties for snapshot ' + str(properties))
