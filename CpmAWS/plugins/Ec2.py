@@ -14,10 +14,10 @@ class Ec2(Plugin):
         :rtype: bool
         """
         ec2collection = Ec2Collection(self.orchestrator)
-        if ec2collection.connect() == False:
+        if ec2collection.connect() is False:
             return False
 
-        if ec2collection.list() == False:
+        if ec2collection.list() is False:
             return False
         for id, instance in ec2collection.instances.iteritems():
             print ' - Instance ' + instance.tags.get('Name') + ' status=' + instance.get('State')['Name']
@@ -30,10 +30,10 @@ class Ec2(Plugin):
         :rtype: bool
         """
         ec2collection = Ec2Collection(self.orchestrator)
-        if ec2collection.connect() == False:
+        if ec2collection.connect() is False:
             logging.error('Impossible to connect')
             return False
-        if ec2collection.list() == False:
+        if ec2collection.list() is False:
             return False
 
         ok = True
@@ -62,10 +62,10 @@ class Ec2(Plugin):
         :rtype: bool
         """
         ec2collection = Ec2Collection(self.orchestrator)
-        if ec2collection.connect() == False:
+        if ec2collection.connect() is False:
             logging.error('Impossible to connect')
             return False
-        if ec2collection.list() == False:
+        if ec2collection.list() is False:
             return False
 
         ok = True

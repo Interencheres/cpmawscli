@@ -62,7 +62,7 @@ class RdsSnapshot(Aws):
         # concatenate all the tags
         i = 0
         encodedtags = ""
-        while self.tags.get('instanceProperties_' + str(i)) != False:
+        while self.tags.get('instanceProperties_' + str(i)) is not False:
             encodedtags += self.tags.get('instanceProperties_' + str(i))
             i = i + 1
         return json.loads(base64.b64decode(encodedtags))

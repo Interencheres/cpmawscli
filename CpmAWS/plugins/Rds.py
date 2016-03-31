@@ -10,7 +10,7 @@ class Rds(Plugin):
     def list(self):
         ok = True
         rdscollection = RdsCollection(self.orchestrator)
-        if rdscollection.connect() == False:
+        if rdscollection.connect() is False:
             return False
         rdscollection.list()
 
@@ -26,7 +26,7 @@ class Rds(Plugin):
     def stop(self):
         ok = True
         rdscollection = RdsCollection(self.orchestrator)
-        if rdscollection.connect() == False:
+        if rdscollection.connect() is False:
             return False
         rdscollection.list()
 
@@ -82,10 +82,10 @@ class Rds(Plugin):
     def start(self):
         ok = True
         snapshotcollection = RdsSnapshotCollection(self.orchestrator)
-        if snapshotcollection.connect() == False:
+        if snapshotcollection.connect() is False:
             logging.error('Listing snapshots error')
             return False
-        if snapshotcollection.list() == False:
+        if snapshotcollection.list() is False:
             return False
 
         snapshotsok = []
