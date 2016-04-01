@@ -96,7 +96,7 @@ class Aws(object):
         # concatenate all the tags
         i = 0
         encodedtags = ""
-        while self.tags.get(str(awsObject.tagPrefix) + str(i)) != False:
+        while self.tags.get(str(awsObject.tagPrefix) + str(i)) is not False:
             encodedtags += self.tags.get(str(awsObject.tagPrefix) + str(i))
             i = i + 1
         return json.loads(base64.b64decode(encodedtags))
@@ -110,7 +110,7 @@ class Aws(object):
 
         # split in 256 chunks as tag values are limited to 256
         for index, chunk in enumerate(
-            [serialized_properties[i:i + 256] for i in range(0, len(serialized_properties), 256)]):
+                [serialized_properties[i:i + 256] for i in range(0, len(serialized_properties), 256)]):
             tags.append({
                 'Key': self.tagPrefix + str(index),
                 'Value': chunk
