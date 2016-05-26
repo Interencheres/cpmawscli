@@ -1,5 +1,4 @@
 import logging
-import logging
 
 from CpmAWS.core.Collection import Collection
 from CpmAWS.classes.RdsInstance import RdsInstance
