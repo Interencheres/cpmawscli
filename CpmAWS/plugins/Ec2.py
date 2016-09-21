@@ -47,7 +47,6 @@ class Ec2(Plugin):
                     ok = False
             else:
                 logging.warning('Skipping Instance ' + instance.name + ' is status ' + instance.awsObject['State']['Name'])
-                ok = False
 
         logging.notice('Waiting instances to be stopped...')
         for instance in stoppinginstances:
