@@ -34,7 +34,7 @@ class RdsSnapshot(Aws):
             except Exception as e:
                 logging.error(format(e))
         else:
-            log('warning', 'Dryrun, not creating snapshot')
+            logging.warning('Dryrun, not creating snapshot')
         return False
 
     def wait(self):
@@ -52,7 +52,7 @@ class RdsSnapshot(Aws):
                 logging.error(format(e))
                 return False
         else:
-            log('warning', 'Dryrun not waiting')
+            logging.warning('Dryrun not waiting')
             return True
         return False
 
@@ -76,7 +76,7 @@ class RdsSnapshot(Aws):
                 logging.error('snapshot ' + self.get('DBSnapshotIdentifier') + ' not restored')
                 logging.error(format(e))
         else:
-            log('warning', 'Dryrun not restoring')
+            logging.warning('Dryrun not restoring')
             return True
         return False
 
