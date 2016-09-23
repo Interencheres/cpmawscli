@@ -8,7 +8,6 @@ from CpmAWS.core.Plugin import Plugin
 
 class Rds(Plugin):
     def list(self):
-        ok = True
         rdscollection = RdsCollection(self.orchestrator)
         if rdscollection.connect() is False:
             return False
