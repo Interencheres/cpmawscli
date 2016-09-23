@@ -14,7 +14,7 @@ class Ec2Collection(Collection):
         # list all instances
         try:
             logging.notice('Listing EC2 instances...')
-            arrayOfAwsObjects = self.aws.describe_instances()
+            arrayOfAwsObjects = self.aws.describe_instances(Filters=self.parameters.tags)
             for reservation in arrayOfAwsObjects['Reservations']:
                 for awsObject in reservation['Instances']:
                     instances[awsObject['InstanceId']] = Ec2Instance(self.orchestrator, self.aws).load(awsObject)
