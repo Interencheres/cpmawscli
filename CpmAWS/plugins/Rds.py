@@ -18,7 +18,7 @@ class Rds(Plugin):
             logging.error('No instance matching filter')
             return False
         else:
-            for id, instance in rdscollection.instances.iteritems():
+            for _, instance in rdscollection.instances.iteritems():
                 print ' - Instance ' + instance.name + \
                       ' status=' + instance.get('DBInstanceStatus')
             return True
@@ -91,7 +91,7 @@ class Rds(Plugin):
         snapshotsok = []
         # restore dbs
         logging.notice('Restoring snapshots...')
-        for name, snapshot in snapshotcollection.snapshots.iteritems():
+        for _, snapshot in snapshotcollection.snapshots.iteritems():
             if snapshot.restore():
                 snapshotsok.append(snapshot)
             else:

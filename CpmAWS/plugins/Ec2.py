@@ -18,7 +18,7 @@ class Ec2(Plugin):
 
         if ec2collection.list() is False:
             return False
-        for id, instance in ec2collection.instances.iteritems():
+        for _, instance in ec2collection.instances.iteritems():
             print ' - Instance ' + instance.tags.get('Name') + ' status=' + instance.get('State')['Name']
         return True
 
@@ -38,7 +38,7 @@ class Ec2(Plugin):
         ok = True
         stoppinginstances = []
         logging.notice('Stopping instances...')
-        for id, instance in ec2collection.instances.iteritems():
+        for _, instance in ec2collection.instances.iteritems():
             if instance.awsObject['State']['Name'] == 'running':
                 if instance.stop():
                     stoppinginstances.append(instance)
@@ -69,7 +69,7 @@ class Ec2(Plugin):
         ok = True
         startinginstances = []
         logging.notice('Starting instances...')
-        for id, instance in ec2collection.instances.iteritems():
+        for _, instance in ec2collection.instances.iteritems():
             if instance.awsObject['State']['Name'] == 'stopped':
                 if instance.start():
                     startinginstances.append(instance)
