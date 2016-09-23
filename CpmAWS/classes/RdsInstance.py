@@ -30,7 +30,7 @@ class RdsInstance(Aws):
     def exist(self, DBInstanceIdentifier):
         try:
             self.aws.describe_db_instances(DBInstanceIdentifier=DBInstanceIdentifier)
-        except:
+        except Exception:
             # exception if dbinstanceidentifier not found
             return False
         return True
