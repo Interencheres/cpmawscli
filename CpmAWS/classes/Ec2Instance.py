@@ -1,8 +1,6 @@
-import boto3
 import logging
 
 from CpmAWS.core.Aws import Aws
-from CpmAWS.core.Tags import Tags
 
 
 class Ec2Instance(Aws):
