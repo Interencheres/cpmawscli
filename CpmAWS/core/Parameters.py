@@ -4,7 +4,9 @@ from six import iteritems
 class Parameters:
     def __init__(self, argparse):
         self.parameters = argparse
-        self._build_tags(self.parameters.tag)
+        self.tags = list()
+        if self.parameters.tag:
+            self._build_tags(self.parameters.tag)
 
     def __getattr__(self, key):
         if key == 'tag':
@@ -35,7 +37,6 @@ class Parameters:
             else:
                 filters[name] = [value]
 
-        self.tags = list()
         for name, values in iteritems(filters):
             self.tags.append({
                 'Name': name,
