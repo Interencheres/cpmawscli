@@ -1,4 +1,4 @@
-class Tags:
+class Tags(object):
     def __init__(self):
         self.dictionnary = {}
 

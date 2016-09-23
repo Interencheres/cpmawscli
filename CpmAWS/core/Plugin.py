@@ -1,4 +1,4 @@
-class Plugin:
+class Plugin(object):
     orchestrator = None
 
     def __init__(self, orchestrator):

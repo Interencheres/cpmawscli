@@ -2,7 +2,7 @@ import logging
 import yaml
 
 
-class Configuration:
+class Configuration(object):
     conf = None
 
     def __init__(self):

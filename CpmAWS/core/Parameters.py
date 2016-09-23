@@ -1,7 +1,7 @@
 from six import iteritems
 
 
-class Parameters:
+class Parameters(object):
     def __init__(self, argparse):
         self.parameters = argparse
         self.tags = list()

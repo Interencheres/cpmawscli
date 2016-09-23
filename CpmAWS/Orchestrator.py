@@ -8,7 +8,7 @@ from CpmAWS.core.Configuration import Configuration
 from CpmAWS.core.Parameters import Parameters
 
 
-class Orchestrator():
+class Orchestrator(object):
     parser = None
     plugins = {}
     parameters = None

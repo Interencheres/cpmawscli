@@ -2,7 +2,7 @@ import CpmAWS.classes
 import logging
 
 
-class Collection:
+class Collection(object):
     configuration = None
     parameters = None
     aws = None
