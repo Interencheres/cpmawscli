@@ -34,10 +34,6 @@ class Collection:
                 if instance.name == name:
                     return False
 
-        for key, value in self.parameters.tags.iteritems():
-            if value != instance.tags.get(key):
-                return False
-
         if self.parameters.instance and (instance.name != self.parameters.instance):
             return False
         return True
