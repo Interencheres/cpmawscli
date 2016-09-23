@@ -1,4 +1,3 @@
-import boto3
 import logging
 
 from CpmAWS.classes.Ec2Instance import Ec2Instance
