@@ -19,7 +19,7 @@ class Ec2(Plugin):
         if ec2collection.list() is False:
             return False
         for _, instance in ec2collection.instances.iteritems():
-            print ' - Instance ' + instance.tags.get('Name') + ' status=' + instance.get('State')['Name']
+            print(' - Instance ' + instance.tags.get('Name') + ' status=' + instance.get('State')['Name'])
         return True
 
     def stop(self):

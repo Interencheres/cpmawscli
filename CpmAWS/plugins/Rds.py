@@ -19,8 +19,8 @@ class Rds(Plugin):
             return False
         else:
             for _, instance in rdscollection.instances.iteritems():
-                print ' - Instance ' + instance.name + \
-                      ' status=' + instance.get('DBInstanceStatus')
+                print(' - Instance ' + instance.name +
+                      ' status=' + instance.get('DBInstanceStatus'))
             return True
 
     def stop(self):
