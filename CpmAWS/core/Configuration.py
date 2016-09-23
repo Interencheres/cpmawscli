@@ -8,8 +8,8 @@ class Configuration:
     def __init__(self):
         try:
             logging.debug('Loading conf file')
-            file = open('cpmAws.yaml', 'r')
-            self.conf = yaml.load(file)
+            handle = open('cpmAws.yaml', 'r')
+            self.conf = yaml.load(handle)
         except Exception:
             logging.error('Impossible to load conf. Abort')
             exit(1)
