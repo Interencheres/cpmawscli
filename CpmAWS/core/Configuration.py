@@ -2,15 +2,15 @@ import logging
 import yaml
 
 
-class Configuration:
+class Configuration(object):
     conf = None
 
     def __init__(self):
         try:
             logging.debug('Loading conf file')
-            file = open('cpmAws.yaml', 'r')
-            self.conf = yaml.load(file)
-        except():
+            handle = open('cpmAws.yaml', 'r')
+            self.conf = yaml.load(handle)
+        except Exception:
             logging.error('Impossible to load conf. Abort')
             exit(1)
 

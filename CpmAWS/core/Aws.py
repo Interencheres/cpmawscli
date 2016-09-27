@@ -36,14 +36,14 @@ class Aws(object):
         return None
 
     def makeTags(self, awstags):
-        object = Tags()
+        tags = Tags()
         try:
             for tag in awstags:
-                object.add(tag['Key'], tag['Value'])
+                tags.add(tag['Key'], tag['Value'])
         except Exception as e:
             logging.error('Error reading tags')
             logging.error(format(e))
-        return object
+        return tags
 
     def getArn(self):
         return 'arn:aws:%s:%s:%s:%s:%s' % (

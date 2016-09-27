@@ -8,7 +8,7 @@ from CpmAWS.core.Configuration import Configuration
 from CpmAWS.core.Parameters import Parameters
 
 
-class Orchestrator():
+class Orchestrator(object):
     parser = None
     plugins = {}
     parameters = None
@@ -65,13 +65,13 @@ class Orchestrator():
         return [mod for mod in dir(CpmAWS.plugins) if not mod.startswith('__')]
 
     def getPluginActions(self, name):
-        object = getattr(getattr(CpmAWS.plugins, name), name)(self)
-        return [attr for attr in dir(object) if inspect.ismethod(getattr(object, attr)) and not attr.startswith('__')]
+        actions = getattr(getattr(CpmAWS.plugins, name), name)(self)
+        return [attr for attr in dir(actions) if inspect.ismethod(getattr(actions, attr)) and not attr.startswith('__')]
 
     def run(self):
         module = getattr(CpmAWS.plugins, self.parameters.type)
-        object = getattr(module, self.parameters.type)(self)
-        ok = getattr(object, self.parameters.action)()
+        instance = getattr(module, self.parameters.type)(self)
+        ok = getattr(instance, self.parameters.action)()
         if ok:
             logging.debug('run ok')
             exit(0)

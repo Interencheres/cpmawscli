@@ -30,7 +30,7 @@ class RdsInstance(Aws):
     def exist(self, DBInstanceIdentifier):
         try:
             self.aws.describe_db_instances(DBInstanceIdentifier=DBInstanceIdentifier)
-        except:
+        except Exception:
             # exception if dbinstanceidentifier not found
             return False
         return True
@@ -55,7 +55,7 @@ class RdsInstance(Aws):
         try:
             waiter.wait(DBInstanceIdentifier=self.id)
             return True
-        except:
+        except Exception as e:
             logging.error('Instance ' + self.id + ' not deleted')
             logging.error(format(e))
         return False
@@ -66,7 +66,7 @@ class RdsInstance(Aws):
         try:
             waiter.wait(DBInstanceIdentifier=self.id)
             return True
-        except:
+        except Exception as e:
             logging.error('Instance ' + self.id + ' not available')
             logging.error(format(e))
         return False

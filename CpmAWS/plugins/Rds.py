@@ -8,7 +8,6 @@ from CpmAWS.core.Plugin import Plugin
 
 class Rds(Plugin):
     def list(self):
-        ok = True
         rdscollection = RdsCollection(self.orchestrator)
         if rdscollection.connect() is False:
             return False
@@ -18,9 +17,9 @@ class Rds(Plugin):
             logging.error('No instance matching filter')
             return False
         else:
-            for id, instance in rdscollection.instances.iteritems():
-                print ' - Instance ' + instance.name + \
-                      ' status=' + instance.get('DBInstanceStatus')
+            for _, instance in rdscollection.instances.iteritems():
+                print(' - Instance ' + instance.name +
+                      ' status=' + instance.get('DBInstanceStatus'))
             return True
 
     def stop(self):
@@ -91,7 +90,7 @@ class Rds(Plugin):
         snapshotsok = []
         # restore dbs
         logging.notice('Restoring snapshots...')
-        for name, snapshot in snapshotcollection.snapshots.iteritems():
+        for _, snapshot in snapshotcollection.snapshots.iteritems():
             if snapshot.restore():
                 snapshotsok.append(snapshot)
             else:

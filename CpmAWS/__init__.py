@@ -1,9 +1,8 @@
 import logging
 
-import classes
-import core
-import plugins
 from Orchestrator import Orchestrator
+
+__all__ = [Orchestrator]
 
 # Let's add a notice log level because boto is to verbose at info level
 NOTICE = logging.INFO + 1
