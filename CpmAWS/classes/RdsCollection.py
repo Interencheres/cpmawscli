@@ -22,7 +22,6 @@ class RdsCollection(Collection):
             logging.error(format(e))
             return False
         # filter them
-        logging.notice('Filtering instances...')
         self.instances = self.filter(instances)
         for name in self.instances:
             logging.debug(name)
