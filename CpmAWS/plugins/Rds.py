@@ -22,6 +22,45 @@ class Rds(Plugin):
                       ' status=' + instance.get('DBInstanceStatus'))
             return True
 
+    def snapshot(self):
+        ok = True
+        rdscollection = RdsCollection(self.orchestrator)
+        if rdscollection.connect() is False:
+            return False
+        rdscollection.list()
+
+        if len(rdscollection.instances) == 0:
+            logging.error('No instance matching filter')
+            return False
+        snapshotsok = {}
+        # launch snapshots for all instances
+        logging.notice('Creating snapshots...')
+        for name, instance in rdscollection.instances.iteritems():
+            # check instance state
+            if instance.get('DBInstanceStatus') == 'available':
+                instance.snapshot = RdsSnapshot(self.orchestrator, rdscollection.aws)
+                if instance.snapshot.create(instance):
+                    snapshotsok[name] = instance
+            else:
+                logging.error('Instance ' + name + 'status ' + instance.get('DBInstanceStatus'))
+                ok = False
+        if len(snapshotsok) == 0:
+            logging.debug('No ok snapshot')
+            return False
+
+        waitok = []
+        # wait for ok snapshots
+        logging.notice('Waiting snapshots to complete...')
+        for name, rdsinstance in snapshotsok.iteritems():
+            logging.notice('Wait for ' + name)
+            if rdsinstance.snapshot.wait():
+                waitok.append(rdsinstance)
+            else:
+                ok = False
+        if len(waitok) == 0:
+            logging.debug('No snapshot')
+            return False
+
     def stop(self):
         ok = True
         rdscollection = RdsCollection(self.orchestrator)

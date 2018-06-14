@@ -105,7 +105,7 @@ class RdsSnapshot(Aws):
     def getTagFilter(self):
         tags = {}
         for tag in self.parameters.tag:
-            tags[tag[0]] = tag[1]
+            tags[tag["Name"][4:]] = tag["Values"][0]
         return tags
 
     def AwsTagsGet(self):

@@ -21,7 +21,7 @@ tags:
       OptionGroupMemberships: OptionGroupName
 
 
-dbSnapshotPrefix: "autoff"
+dbSnapshotPrefix: "triggered"
 region: "eu-west-1"
 # Log parameters
 logformat: '%(asctime)s %(levelname)s %(message)s'
@@ -36,5 +36,3 @@ logcolors:
         'color': 'yellow'
     'error':
         'color': 'red'
-
-
