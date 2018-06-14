@@ -50,10 +50,10 @@ class Aws(object):
             self.arnService,
             self.configuration.get('region'),
             boto3.client(
-                'iam',
+                'sts',
                 aws_access_key_id=self.parameters.aws_access_key_id,
                 aws_secret_access_key=self.parameters.aws_secret_access_key
-            ).get_user()['User']['Arn'].split(':')[4],
+            ).get_caller_identity()["Account"],
             self.arnType,
             self.awsObject[self.arnPropertyForId]
         )
