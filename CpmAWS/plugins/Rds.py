@@ -180,11 +180,12 @@ class Rds(Plugin):
         if snapshotcollection.list() is False:
             return False
 
-        snapshotstodelete = []
+        snapshotstodelete = snapshotcollection.snapshot_olds
 
         # delete snapshots
         logging.notice('Deleting snapshots...')
         for snapshot in snapshotstodelete:
-            logging.notice('Deleting snapshots...' + snapshot)
+            if not snapshot.delete():
+                ok = False
 
         return ok

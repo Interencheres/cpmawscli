@@ -5,7 +5,8 @@ from RdsSnapshot import RdsSnapshot
 
 
 class RdsSnapshotCollection(Collection):
-    snapshots = {}
+    snapshots      = {}
+    snapshot_olds  = []
     instanceModule = 'RdsSnapshot'
 
     def list(self):
@@ -30,15 +31,23 @@ class RdsSnapshotCollection(Collection):
             # filter with tag_key/value
             if snapshot.belongsToFilter(snapshot.tags.get('DBInstanceIdentifier')):
                 # keep only last snapshot
-                if not snapshot.awsObject['DBInstanceIdentifier'] in self.snapshots or snapshot.awsObject[
-                    'SnapshotCreateTime'] > self.snapshots[snapshot.awsObject['DBInstanceIdentifier']].awsObject[
-                        'SnapshotCreateTime']:
+                if not snapshot.awsObject['DBInstanceIdentifier'] in self.snapshots:
                     self.snapshots[snapshot.awsObject['DBInstanceIdentifier']] = snapshot
-                    logging.debug(snapshot.awsObject['DBSnapshotIdentifier'])
+                    logging.info(snapshot.awsObject['DBSnapshotIdentifier'])
                 else:
-                    logging.debug(snapshot.awsObject['DBSnapshotIdentifier'] + " too old")
+                    if snapshot.awsObject['SnapshotCreateTime'] > self.snapshots[snapshot.awsObject['DBInstanceIdentifier']].awsObject[
+                            'SnapshotCreateTime']:
+                        self.snapshot_olds.append(self.snapshots[snapshot.awsObject['DBInstanceIdentifier']])
+                        self.snapshots[snapshot.awsObject['DBInstanceIdentifier']] = snapshot
+                        logging.info(snapshot.awsObject['DBSnapshotIdentifier'])
+                    else:
+                        self.snapshot_olds.append(snapshot)
+                        logging.info(snapshot.awsObject['DBSnapshotIdentifier'] + " too old")
             else:
-                logging.debug("ignored " + snapshot.awsObject['DBSnapshotIdentifier'])
+                logging.info("ignored " + snapshot.awsObject['DBSnapshotIdentifier'])
         for dbinstanceidentifier in self.snapshots:
-            logging.notice(dbinstanceidentifier)
+            logging.info("Instance with snapshot: " + dbinstanceidentifier
+                + " : " + self.snapshots[dbinstanceidentifier].awsObject['DBSnapshotIdentifier'])
+        for dbinstanceidentifier in self.snapshot_olds:
+            logging.info("Old snapshot: " + dbinstanceidentifier.awsObject['DBSnapshotIdentifier'])
         return self.snapshots
