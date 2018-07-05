@@ -94,13 +94,15 @@ class RdsSnapshot(Aws):
             # does object comply with command line filtering parameters
 
     def belongsToFilter(self, instanceIdentifier):
-        for tag in self.parameters.tag:
-            if tag[1] == self.tags.get(tag[0]):
-                return True
+        for tag in self.parameters.tags:
+            key = tag["Name"][4:]
+            values = tag["Values"]
+            if self.tags.get(key) not in values:
+                return False
 
-        if self.parameters.instance and (instanceIdentifier == self.parameters.instance):
-            return True
-        return False
+        if self.parameters.instance and (instanceIdentifier != self.parameters.instance):
+            return False
+        return True
 
     def getTagFilter(self):
         tags = {}
