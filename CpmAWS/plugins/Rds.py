@@ -60,6 +60,7 @@ class Rds(Plugin):
         if len(waitok) == 0:
             logging.debug('No snapshot')
             return False
+        return ok
 
     def stop(self):
         ok = True
