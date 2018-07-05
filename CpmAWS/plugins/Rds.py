@@ -170,3 +170,21 @@ class Rds(Plugin):
                 ok = False
 
         return ok
+
+    def purgesnapshots(self):
+        ok = True
+        snapshotcollection = RdsSnapshotCollection(self.orchestrator)
+        if snapshotcollection.connect() is False:
+            logging.error('Listing snapshots error')
+            return False
+        if snapshotcollection.list() is False:
+            return False
+
+        snapshotstodelete = []
+
+        # delete snapshots
+        logging.notice('Deleting snapshots...')
+        for snapshot in snapshotstodelete:
+            logging.notice('Deleting snapshots...' + snapshot)
+
+        return ok

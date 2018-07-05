@@ -16,8 +16,8 @@ class RdsSnapshotCollection(Collection):
             result = self.aws.describe_db_snapshots(
                 SnapshotType='manual',
                 MaxRecords=100,
-                IncludeShared=True | False,
-                IncludePublic=True | False
+                IncludeShared=False,
+                IncludePublic=False
             )
         except Exception as e:
             logging.error(format(e))
