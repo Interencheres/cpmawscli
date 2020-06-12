@@ -75,6 +75,8 @@ class Ec2(Plugin):
                     startinginstances.append(instance)
                 else:
                     ok = False
+            elif instance.awsObject['State']['Name'] == 'running':
+                logging.notice('Skipping Instance ' + instance.name + ' is already status ' + instance.awsObject['State']['Name'])
             else:
                 logging.warning('Skipping Instance ' + instance.name + ' is status ' + instance.awsObject['State']['Name'])
                 ok = False
