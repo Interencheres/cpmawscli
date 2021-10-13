@@ -1,8 +1,8 @@
 import logging
 from fnmatch import fnmatch
 
-from CpmAWS.core.Collection import Collection
-from CpmAWS.classes.RdsInstance import RdsInstance
+from ..core.Collection import Collection
+from .RdsInstance import RdsInstance
 
 
 class RdsCollection(Collection):

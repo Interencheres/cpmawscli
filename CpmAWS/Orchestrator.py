@@ -3,9 +3,9 @@ import coloredlogs
 import inspect
 import logging
 
-import CpmAWS.plugins
-from CpmAWS.core.Configuration import Configuration
-from CpmAWS.core.Parameters import Parameters
+from . import plugins
+from .core.Configuration import Configuration
+from .core.Parameters import Parameters
 
 
 class Orchestrator(object):
@@ -62,14 +62,14 @@ class Orchestrator(object):
 
     def getPluginList(self):
         # @TODO find other way to filter classes
-        return [mod for mod in dir(CpmAWS.plugins) if not mod.startswith('__')]
+        return [mod for mod in dir(plugins) if not mod.startswith('__')]
 
     def getPluginActions(self, name):
-        actions = getattr(getattr(CpmAWS.plugins, name), name)(self)
+        actions = getattr(getattr(plugins, name), name)(self)
         return [attr for attr in dir(actions) if inspect.ismethod(getattr(actions, attr)) and not attr.startswith('__')]
 
     def run(self):
-        module = getattr(CpmAWS.plugins, self.parameters.type)
+        module = getattr(plugins, self.parameters.type)
         instance = getattr(module, self.parameters.type)(self)
         ok = getattr(instance, self.parameters.action)()
         if ok:

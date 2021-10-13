@@ -1,4 +1,4 @@
-import CpmAWS.classes
+from .. import classes
 import logging
 
 
@@ -24,7 +24,7 @@ class Collection(object):
         return {
             id: instance
             for id, instance
-            in instancesList.iteritems()
+            in instancesList.items()
             if self.instanceBelongsToFilter(instance)
         }
 

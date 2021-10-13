@@ -2,7 +2,7 @@ import base64
 import boto3
 import json
 import logging
-from Tags import Tags
+from .Tags import Tags
 
 
 class Aws(object):
@@ -126,11 +126,11 @@ class Aws(object):
         id = self.arnService + self.arnType
         # Simple value Tags
         if 'Simple' in self.configuration.get('tags')[id]:
-            properties = {key: value for key, value in awsObject.items() if
+            properties = {key: value for key, value in list(awsObject.items()) if
                           key in self.configuration.get('tags')[id]['Simple']}
 
         if 'Dict' in self.configuration.get('tags')[id]:
-            for key, value in self.configuration.get('tags')[id]['Dict'].iteritems():
+            for key, value in self.configuration.get('tags')[id]['Dict'].items():
                 if key in self.awsObject:
                     if value not in properties:
                         properties[value] = []
@@ -139,7 +139,7 @@ class Aws(object):
                     logging.notice('Property ' + key + ' not found for ' + self.id)
 
         if 'Array' in self.configuration.get('tags')[id]:
-            for key, value in self.configuration.get('tags')[id]['Array'].iteritems():
+            for key, value in self.configuration.get('tags')[id]['Array'].items():
                 if key in self.awsObject:
                     for prop in self.get(key):
                         if key not in properties:
@@ -150,12 +150,12 @@ class Aws(object):
                     logging.notice('Property ' + key + ' not found for ' + self.id)
         # List dict Tags to simple, as RDS api is not homogeneous
         if 'DictToSimple' in self.configuration.get('tags')[id]:
-            for key, value in self.configuration.get('tags')[id]['DictToSimple'].iteritems():
+            for key, value in self.configuration.get('tags')[id]['DictToSimple'].items():
                 properties[value] = self.get(key)[value]
 
         # List array Tags to simple, as RDS api is not homogeneous
         if 'ArrayToSimple' in self.configuration.get('tags')[id]:
-            for key, value in self.configuration.get('tags')[id]['ArrayToSimple'].iteritems():
+            for key, value in self.configuration.get('tags')[id]['ArrayToSimple'].items():
                 # @TODO remove the [0] when snapshot creation supports list for this property
                 properties[value] = self.get(key)[0][value]
 

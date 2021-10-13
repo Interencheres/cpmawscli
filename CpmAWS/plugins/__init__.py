@@ -1,2 +1,2 @@
-import Rds
-import Ec2
+from . import Rds
+from . import Ec2
