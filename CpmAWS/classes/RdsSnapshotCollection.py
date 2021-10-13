@@ -1,7 +1,7 @@
 import logging
 
-from CpmAWS.core.Collection import Collection
-from RdsSnapshot import RdsSnapshot
+from ..core.Collection import Collection
+from .RdsSnapshot import RdsSnapshot
 
 
 class RdsSnapshotCollection(Collection):

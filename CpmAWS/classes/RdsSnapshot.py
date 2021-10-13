@@ -1,8 +1,8 @@
 import logging
 from datetime import datetime
 
-from CpmAWS.classes.RdsInstance import RdsInstance
-from CpmAWS.core.Aws import Aws
+from .RdsInstance import RdsInstance
+from ..core.Aws import Aws
 
 
 class RdsSnapshot(Aws):
@@ -19,7 +19,7 @@ class RdsSnapshot(Aws):
         logging.notice('Creating snapshot ' + self.dbsnapshotidentifier + "...")
         tags = rdsObject.makeTagsForSnapshot()
         # for ease add plain tags
-        for key, value in self.getTagFilter().iteritems():
+        for key, value in self.getTagFilter().items():
             tags.append({'Key': key, 'Value': value})
         tags.append({'Key': 'DBInstanceIdentifier', 'Value': rdsObject.awsObject['DBInstanceIdentifier']})
 

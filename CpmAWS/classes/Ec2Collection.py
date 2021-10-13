@@ -1,7 +1,7 @@
 import logging
 
-from CpmAWS.classes.Ec2Instance import Ec2Instance
-from CpmAWS.core.Collection import Collection
+from .Ec2Instance import Ec2Instance
+from ..core.Collection import Collection
 
 
 class Ec2Collection(Collection):

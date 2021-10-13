@@ -1,6 +1,6 @@
 import logging
 
-from CpmAWS.core.Aws import Aws
+from ..core.Aws import Aws
 
 
 class Ec2Instance(Aws):

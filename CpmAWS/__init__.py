@@ -1,6 +1,6 @@
 import logging
 
-from Orchestrator import Orchestrator
+from .Orchestrator import Orchestrator
 
 __all__ = [Orchestrator]
 

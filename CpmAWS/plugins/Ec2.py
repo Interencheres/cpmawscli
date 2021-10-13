@@ -1,8 +1,8 @@
 import logging
 
-from CpmAWS.classes.Ec2Collection import Ec2Collection
+from ..classes.Ec2Collection import Ec2Collection
 
-from CpmAWS.core.Plugin import Plugin
+from ..core.Plugin import Plugin
 
 
 class Ec2(Plugin):
@@ -18,7 +18,7 @@ class Ec2(Plugin):
 
         if ec2collection.list() is False:
             return False
-        for _, instance in ec2collection.instances.iteritems():
+        for _, instance in ec2collection.instances.items():
             print(' - Instance ' + instance.tags.get('Name') + ' status=' + instance.get('State')['Name'])
         return True
 
@@ -38,7 +38,7 @@ class Ec2(Plugin):
         ok = True
         stoppinginstances = []
         logging.notice('Stopping instances...')
-        for _, instance in ec2collection.instances.iteritems():
+        for _, instance in ec2collection.instances.items():
             if instance.awsObject['State']['Name'] == 'running':
                 if instance.stop():
                     stoppinginstances.append(instance)
@@ -69,7 +69,7 @@ class Ec2(Plugin):
         ok = True
         startinginstances = []
         logging.notice('Starting instances...')
-        for _, instance in ec2collection.instances.iteritems():
+        for _, instance in ec2collection.instances.items():
             if instance.awsObject['State']['Name'] == 'stopped':
                 if instance.start():
                     startinginstances.append(instance)

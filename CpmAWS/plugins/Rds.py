@@ -1,9 +1,9 @@
 import logging
 
-from CpmAWS.classes.RdsCollection import RdsCollection
-from CpmAWS.classes.RdsSnapshot import RdsSnapshot
-from CpmAWS.classes.RdsSnapshotCollection import RdsSnapshotCollection
-from CpmAWS.core.Plugin import Plugin
+from ..classes.RdsCollection import RdsCollection
+from ..classes.RdsSnapshot import RdsSnapshot
+from ..classes.RdsSnapshotCollection import RdsSnapshotCollection
+from ..core.Plugin import Plugin
 
 
 class Rds(Plugin):
@@ -17,9 +17,9 @@ class Rds(Plugin):
             logging.error('No instance matching filter')
             return False
         else:
-            for _, instance in rdscollection.instances.iteritems():
-                print(' - Instance ' + instance.name +
-                      ' status=' + instance.get('DBInstanceStatus'))
+            for _, instance in rdscollection.instances.items():
+                print((' - Instance ' + instance.name +
+                      ' status=' + instance.get('DBInstanceStatus')))
             return True
 
     def snapshot(self):
@@ -35,7 +35,7 @@ class Rds(Plugin):
         snapshotsok = {}
         # launch snapshots for all instances
         logging.notice('Creating snapshots...')
-        for name, instance in rdscollection.instances.iteritems():
+        for name, instance in rdscollection.instances.items():
             # check instance state
             if instance.get('DBInstanceStatus') == 'available':
                 instance.snapshot = RdsSnapshot(self.orchestrator, rdscollection.aws)
@@ -51,7 +51,7 @@ class Rds(Plugin):
         waitok = []
         # wait for ok snapshots
         logging.notice('Waiting snapshots to complete...')
-        for name, rdsinstance in snapshotsok.iteritems():
+        for name, rdsinstance in snapshotsok.items():
             logging.notice('Wait for ' + name)
             if rdsinstance.snapshot.wait():
                 waitok.append(rdsinstance)
@@ -75,7 +75,7 @@ class Rds(Plugin):
         snapshotsok = {}
         # launch snapshots for all instances
         logging.notice('Creating snapshots...')
-        for name, instance in rdscollection.instances.iteritems():
+        for name, instance in rdscollection.instances.items():
             # check instance state
             if instance.get('DBInstanceStatus') == 'available':
                 instance.snapshot = RdsSnapshot(self.orchestrator, rdscollection.aws)
@@ -91,7 +91,7 @@ class Rds(Plugin):
         waitok = []
         # wait for ok snapshots
         logging.notice('Waiting snapshots to complete...')
-        for name, rdsinstance in snapshotsok.iteritems():
+        for name, rdsinstance in snapshotsok.items():
             logging.notice('Wait for ' + name)
             if rdsinstance.snapshot.wait():
                 waitok.append(rdsinstance)
@@ -130,7 +130,7 @@ class Rds(Plugin):
         snapshotsok = []
         # restore dbs
         logging.notice('Restoring snapshots...')
-        for _, snapshot in snapshotcollection.snapshots.iteritems():
+        for _, snapshot in snapshotcollection.snapshots.items():
             if snapshot.restore():
                 snapshotsok.append(snapshot)
             else:
