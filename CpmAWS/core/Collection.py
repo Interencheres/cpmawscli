@@ -16,7 +16,7 @@ class Collection(object):
 
     # collection uses the connect method of the instance it's a collection of
     def connect(self):
-        self.aws = getattr(getattr(CpmAWS.classes, self.instanceModule), self.instanceModule)(self.orchestrator).connect()
+        self.aws = getattr(getattr(classes, self.instanceModule), self.instanceModule)(self.orchestrator).connect()
 
     # for EC2 filterring could be done on request, but for homogeneity sake, we filter afertwards as RDS doesn't support filtering on requets
     def filter(self, instancesList):
