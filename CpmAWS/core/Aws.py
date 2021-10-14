@@ -105,7 +105,7 @@ class Aws(object):
         # characters are limited so base64encode the chunk
         jsonTags = json.dumps(self.getInstancePropertiesForSnapshot(self.awsObject))
         logging.debug('Tags for ' + self.id + ' ' + jsonTags)
-        serialized_properties = base64.b64encode(jsonTags.encode())
+        serialized_properties = base64.b64encode(jsonTags.encode()).decode()
         tags = []
 
         # split in 256 chunks as tag values are limited to 256
